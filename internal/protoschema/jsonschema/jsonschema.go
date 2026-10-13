@@ -387,21 +387,22 @@ func (p *Generator) setDeprecated(desc protoreflect.Descriptor, schema map[strin
 }
 
 // isDeprecated reports whether the descriptor has the `deprecated` option set
-// in its Protobuf options.
+// in its Protobuf options, or is declared in a file that does.
+//
+// A file-level `option deprecated = true` deprecates everything declared in
+// that file, so every descriptor within it is deprecated regardless of its own
+// options.
 func isDeprecated(desc protoreflect.Descriptor) bool {
-	fileDeprecated := false
-	if fileOptions := desc.ParentFile().Options(); fileOptions != nil {
-		if fo, ok := fileOptions.(*descriptorpb.FileOptions); ok {
-			fileDeprecated = fo.GetDeprecated()
-		}
+	if fileOptions, ok := desc.ParentFile().Options().(*descriptorpb.FileOptions); ok && fileOptions.GetDeprecated() {
+		return true
 	}
 	switch options := desc.Options().(type) {
 	case *descriptorpb.MessageOptions:
-		return options.GetDeprecated() || fileDeprecated
+		return options.GetDeprecated()
 	case *descriptorpb.FieldOptions:
 		return options.GetDeprecated()
 	case *descriptorpb.EnumOptions:
-		return options.GetDeprecated() || fileDeprecated
+		return options.GetDeprecated()
 	}
 	return false
 }

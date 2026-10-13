@@ -25,11 +25,13 @@
             }
           ],
           "default": 0,
+          "deprecated": true,
           "description": "A field referencing an enum deprecated only by the file-level option.",
           "title": "Deprecated File Enum"
         },
         "^(stringField)$": {
           "default": "",
+          "deprecated": true,
           "type": "string"
         }
       },
@@ -53,11 +55,13 @@
             }
           ],
           "default": 0,
+          "deprecated": true,
           "description": "A field referencing an enum deprecated only by the file-level option.",
           "title": "Deprecated File Enum"
         },
         "string_field": {
           "default": "",
+          "deprecated": true,
           "type": "string"
         }
       },
