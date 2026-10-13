@@ -124,8 +124,8 @@ func TestDeprecated(t *testing.T) {
 		{name: "message field option", schema: "buf.protoschema.test.v1.DeprecatedTest.schema.json", field: "deprecated_message_field", expected: true},
 		{name: "message field without option", schema: "buf.protoschema.test.v1.DeprecatedTest.schema.json", field: "message_field", expected: false},
 		{name: "file option on message", schema: "buf.protoschema.test.v1.DeprecatedFileTest.schema.json", expected: true},
-		{name: "file option does not apply to enum fields", schema: "buf.protoschema.test.v1.DeprecatedFileTest.schema.json", field: "enum_field", expected: false},
-		{name: "file option does not apply to fields", schema: "buf.protoschema.test.v1.DeprecatedFileTest.schema.json", field: "string_field", expected: false},
+		{name: "file option on enum field", schema: "buf.protoschema.test.v1.DeprecatedFileTest.schema.json", field: "enum_field", expected: true},
+		{name: "file option on scalar field", schema: "buf.protoschema.test.v1.DeprecatedFileTest.schema.json", field: "string_field", expected: true},
 	}
 	for _, testCase := range testCases {
 		t.Run(testCase.name, func(t *testing.T) {
